@@ -1,6 +1,7 @@
 {
 	"version": "2.0.0",
 	"tasks": [
+
 		{
 			"type": "cppbuild",
 			"label": "C/C++: g++ build active file",
@@ -10,7 +11,7 @@
 				"-g",
 				"${file}",
 				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}.exe"
+				"${fileDirname}/${fileBasenameNoExtension}.exe",
 			],
 			"options": {
 				"cwd": "${fileDirname}"
@@ -23,6 +24,30 @@
 				"isDefault": true
 			},
 			"detail": "compiler: /usr/bin/g++"
-		}
+		},
+
+		// {
+		// 	"type": "cppbuild",
+		// 	"label": "C/C++: g++ build CLIENT app",
+		// 	"command": "/usr/bin/g++",
+		// 	"args": [
+		// 		"-fdiagnostics-color=always",
+		// 		"-o",
+		// 		"client.app.exe",
+		// 		"-g",
+		// 		"client_app.cpp"
+
+		// 	],
+		// 	"options": {
+		// 		"cwd": "${workspaceFolder}"
+		// 	},
+		// 	"problemMatcher": [
+		// 		"$gcc"
+		// 	],
+		// 	"group":"build",
+		// 	"detail": "compiler: /usr/bin/g++"
+		// },
+
+
 	]
 }
