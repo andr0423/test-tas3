@@ -64,8 +64,7 @@ void ClientUdp::start(){
             << setw(6)
             << counter << " - " 
             
-            << setw(2) << setfill('0') << dec
-            << "id[" << +buf[0] << "]: "
+            << "id[" << setw(2) << setfill(' ') << dec << +buf[0] << "]: "
 
             << setw(3) << setfill(' ') << dec
             << +x << " >> " 

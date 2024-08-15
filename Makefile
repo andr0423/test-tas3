@@ -13,10 +13,10 @@ clean:
 
 all: main.exe server.exe client.exe 
 
-main.exe:
+main.exe: main.cpp 
 	g++ -I common -o main.exe   -g main.cpp   common/*.cpp
 
-client.exe:
+client.exe: 
 	g++ -I common -o client.exe -g client.cpp common/client_udp.cpp common/common_udp.cpp common/rnd.cpp common/state_mashine.cpp
 
 server.exe:
