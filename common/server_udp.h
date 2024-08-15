@@ -12,22 +12,12 @@
 #include <iostream>
 #include <iomanip>
 
-// # i n c lude "../rnd.h"
-#include "state_mashine.h"
+#include "rnd.h"
 
-#include <random>
-
-using namespace std;
-
-random_device rd;   // non-deterministic generator
-mt19937 gen(rd());  // to seed mersenne twister.
-uniform_int_distribution<> dist(1,255);
-
-using namespace std;
-
-class Tclient
+class ServerUdp
 {
-    int srv_host;
+    unsigned char id;
+    in_addr_t srv_host;
     int srv_port;
     int sockfd;
 
@@ -36,14 +26,13 @@ class Tclient
 
     unsigned char buf[4];
 
-    bool is_serving;
-    
-    //StMashine * stm;
-    StMashine stm = StMashine();
+    bool is_serving = false;
+
+    struct sockaddr_in cli_addr;
+           socklen_t   cli_addr_len;
 
 public:
-    Tclient( int port, in_addr_t host = INADDR_LOOPBACK );
-    ~Tclient();
+    ServerUdp(int port, in_addr_t host=INADDR_LOOPBACK, unsigned char id=0 );
     bool init();
     void stop();
     void start();
