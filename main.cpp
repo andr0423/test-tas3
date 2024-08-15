@@ -35,8 +35,6 @@ int main(){
     sleep(3);
     srv->stop();
 
-    cout << "==== ==== test-task3 is completed ==== ==== ====" << endl;
-
     delete srv;
 
     for ( int i; i < 32 ; i++){
@@ -44,5 +42,7 @@ int main(){
         delete thrds[i];
     }
 
+    cout << "==== ==== test-task3 is completed ==== ==== ====" << endl;
+    
     return 0;
 }

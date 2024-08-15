@@ -6,10 +6,10 @@
 # /home/andrus/learn/tts/3/test-task3/main.cpp /home/andrus/learn/tts/3/test-task3/common/*.cpp
 #
 
+build: main.exe
+
 clean:
 	-rm -f *.exe *.log
-
-build: main.exe
 
 all: main.exe server.exe client.exe 
 
