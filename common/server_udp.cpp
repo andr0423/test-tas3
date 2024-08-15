@@ -4,42 +4,14 @@
 
 using namespace std;
 
-ServerUdp::ServerUdp(int port, in_addr_t host, unsigned char id )
-    : srv_host(host), srv_port(port), id(id)
+ServerUdp::ServerUdp(int port, in_addr_t host, unsigned char id, const string fname )
+    : CommonUdp(port, host, id)
 {
-    srv_addr_len = sizeof(srv_addr);
-    cli_addr_len  = sizeof(cli_addr);
+    cli_addr_len = sizeof( cli_addr );
+    memset( &cli_addr, 0,  cli_addr_len );
 
-    memset(&srv_addr, 0, srv_addr_len); 
-    memset(&cli_addr, 0, cli_addr_len );
-
-}
-
-bool ServerUdp::init()
-{
-    sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-    if(sockfd < 0)
-    {
-        perror("socket");
-        return false;
-    }
-
-    srv_addr.sin_family = AF_INET;
-    srv_addr.sin_port = htons(srv_port);
-    srv_addr.sin_addr.s_addr = htonl(srv_host);
-
-    if(bind(sockfd, (struct sockaddr *)&srv_addr, srv_addr_len) < 0)
-    {
-        perror("bind");
-        return false;
-    }
-
-    return true;
-}
-
-void ServerUdp::stop(){
-    is_serving = false;
-}
+    fout.open(fname, std::ios_base::app);
+} 
 
 void ServerUdp::start(){
     this->init();
@@ -58,12 +30,11 @@ void ServerUdp::start(){
                         &cli_addr_len); 
 
         if(bytes_read <= 0) break;
-
-        buf[bytes_read] = 0;
-        value_x = buf[1];
+        
+        value_x   = buf[1];
         value_rnd = rnd();            
-        value_y = value_x % value_rnd;
-        buf[1] = value_y;
+        value_y   = value_x % value_rnd;
+        buf[1]    = value_y;
 
         bytes_write = sendto(sockfd, (const char *)buf, 3,  
                         MSG_CONFIRM, (const struct sockaddr *) &cli_addr, 
@@ -71,14 +42,19 @@ void ServerUdp::start(){
         
         if(bytes_write <= 0) break;
 
-        cout << setw(6)
-                << counter++ << " - "
-                << setw(2) << setfill('0')
-                << "id["  << +buf[0] << "]" 
-                << setfill(' ') << setw(3)
-                << ",  '" << +value_x   << "'"
-                << " % '" << +value_rnd << "'"
-                << " = '" << +value_y   << "'" << endl;
+        // cout
+        fout
+            << setw(6)
+            << counter++ << " - "
+
+            << setw(2) // << setfill('0')
+            << "id["  << +buf[0] << "]" 
+
+            << setw(3) << setfill(' ') 
+            << ",  '" << +value_x   << "'"
+            << " % '" << +value_rnd << "'"
+            << " = '" << +value_y   << "'" << endl;
+
     }
 
     close(sockfd);

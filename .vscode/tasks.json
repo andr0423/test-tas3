@@ -4,6 +4,33 @@
 
 		{
 			"type": "cppbuild",
+			"label": "C/C++: g++ build MAIN.exe",
+			"command": "/usr/bin/g++",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-I",
+                "${workspaceFolder}/common",
+				"-o",
+				"${workspaceFolder}/main.exe",
+				"-g",
+				"${workspaceFolder}/main.cpp",
+				"${workspaceFolder}/common/*.cpp",
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler: /usr/bin/g++"
+		},
+
+		{
+			"type": "cppbuild",
 			"label": "C/C++: g++ build CLIENT",
 			"command": "/usr/bin/g++",
 			"args": [
@@ -15,6 +42,7 @@
 				"-g",
 				"${workspaceFolder}/client.cpp",
 				"${workspaceFolder}/common/client_udp.cpp",
+				"${workspaceFolder}/common/common_udp.cpp",
 				"${workspaceFolder}/common/rnd.cpp",
 				"${workspaceFolder}/common/state_mashine.cpp"
 
@@ -41,6 +69,7 @@
 				"${workspaceFolder}/server.exe",
 				"-g",
 				"${workspaceFolder}/server.cpp",
+				"${workspaceFolder}/common/common_udp.cpp",
 				"${workspaceFolder}/common/rnd.cpp",
 				"${workspaceFolder}/common/server_udp.cpp",
 
@@ -72,10 +101,7 @@
 			"problemMatcher": [
 				"$gcc"
 			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
+			"group": "build",
 			"detail": "compiler: /usr/bin/g++"
 		},
 

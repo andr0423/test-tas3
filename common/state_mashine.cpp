@@ -11,7 +11,7 @@ struct state machine[] = {
 
     { Sn::E, 170, Sn::F, 5, Sn::A, Sn::E },
 
-    { Sn::F, 255, Sn::F, 0, Sn::F, Sn::F }   // ?
+    { Sn::F, 1, Sn::F, 5, Sn::F, Sn::F }   // ?
 };
 
 StMashine::StMashine()
@@ -20,6 +20,10 @@ StMashine::StMashine()
 
 bool StMashine::step(unsigned char v)
 {
+    if ( current_state->current >= Sn::F ){
+        return false;
+    }
+
     if ( v >= current_state->ge ) {
         current_state = &machine[current_state->ge_step];
     } else if ( v < current_state->lt ) {
@@ -27,6 +31,7 @@ bool StMashine::step(unsigned char v)
     } else {
         current_state = &machine[current_state->another];
     }
+    
     return current_state->current < Sn::F;
 }
 
